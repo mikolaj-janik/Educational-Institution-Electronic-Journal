@@ -3,6 +3,8 @@ package dziennik;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+Zmiana-Patryk
+
 public class Dziennik implements DziennikInterfejs{
     private Uczen uczen;
     private Nauczyciel nauczyciel;
