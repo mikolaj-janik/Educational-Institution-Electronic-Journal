@@ -1,7 +1,6 @@
 package dziennik;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Klasa {
     public ArrayList<Uczen> listaUczniow = new ArrayList<>();
@@ -17,9 +16,8 @@ public class Klasa {
             listaNauczycieli.add(nauczyciele[i]);
         this.nazwa = nazwa;
         for(int i = 0; i < listaNauczycieli.size(); i++){
-            for(int j = i; j < listaNauczycieli.get(i).listaPrzedmiotow.size(); j++){
+            for(int j = 0; j < listaNauczycieli.get(i).listaPrzedmiotow.size(); j++)
                 listaPrzedmiotow.add(listaNauczycieli.get(i).listaPrzedmiotow.get(j));
-            }
         }
     }
     public void addStudent(Uczen uczen){ //ta metoda dodaje uczniów alfafbetycznie do dziennika
