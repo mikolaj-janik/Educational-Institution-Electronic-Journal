@@ -1,14 +1,16 @@
 package dziennik;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
-jakas zmiana
 public class Dziennik implements DziennikInterfejs{
     private Uczen uczen;
     private Nauczyciel nauczyciel;
+    ArrayList<Przedmiot> listaPrzedmiotow = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
     public Dziennik(Uczen uczen){
         this.uczen = uczen;
+        initPrzedmioty();
         System.out.println("---Dziennik Pibrus---");
         System.out.println("Uczeń: "+uczen.toString());
         while(true){
@@ -48,6 +50,7 @@ public class Dziennik implements DziennikInterfejs{
     }
     public Dziennik(Nauczyciel nauczyciel){
         this.nauczyciel = nauczyciel;
+        initPrzedmioty();
         System.out.println("---Dziennik Pibrus---");
         System.out.println("Nauczyciel: "+nauczyciel.toString());
         while(true){
@@ -80,6 +83,18 @@ public class Dziennik implements DziennikInterfejs{
             }
 
         }
+    }
+    protected void initPrzedmioty(){
+        listaPrzedmiotow.add(new Przedmiot("matematyka", 6));
+        listaPrzedmiotow.add(new Przedmiot("język polski", 6));
+        listaPrzedmiotow.add(new Przedmiot("język angielski", 6));
+        listaPrzedmiotow.add(new Przedmiot("język niemiecki", 6));
+        listaPrzedmiotow.add(new Przedmiot("historia", 4));
+        listaPrzedmiotow.add(new Przedmiot("chemia", 4));
+        listaPrzedmiotow.add(new Przedmiot("fizyka", 4));
+        listaPrzedmiotow.add(new Przedmiot("wiedza o społeczeństwie", 4));
+        listaPrzedmiotow.add(new Przedmiot("wychowanie fizyczne", 3));
+        listaPrzedmiotow.add(new Przedmiot("religia", 4));
     }
     @Override
     public void pokazOceny(Uczen uczen) {
@@ -118,13 +133,20 @@ public class Dziennik implements DziennikInterfejs{
             for(int i = 0; i < nauczyciel.listaKlas.size(); i++){
                 System.out.println("\t"+i + 1+". "+nauczyciel.listaKlas.get(i).getNazwa());
             }
+            System.out.println("\t"+nauczyciel.listaKlas.size() + 1+". Wstecz");
             System.out.print("Twój wybór: ");
             int choice = scanner.nextInt();
-            switch(choice){
-                case
-            }
+            if(choice <= nauczyciel.listaKlas.size() && choice >= 0)
+                zarzadzajOcenami1(nauczyciel.listaKlas.get(choice - 1));
+            else if(choice == nauczyciel.listaKlas.size() + 1)
+                return;
+            else
+                System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz. ");
 
         }
+    }
+    private void zarzadzajOcenami1(Klasa klasa){
+
     }
 
     @Override

@@ -18,24 +18,14 @@ public class Nauczyciel extends Osoba{
             wiecejPrzedmiotow[i].setProwadzacy(this);
         }
     }
+    protected void dodajKlase(Klasa klasa){
+        listaKlas.add(klasa);
+    }
     public String toString(){
-        return imie + " " + nazwisko;
+        return "mgr "+imie + " " + nazwisko;
     }
 
     public void setKlasaPodOpieką(Klasa klasaPodOpieką) {
         this.klasaPodOpieką = klasaPodOpieką;
-    }
-
-    public void dodajKlase(Klasa klasa, String nazwaPrzedmiotu){
-        listaKlas.add(klasa);
-        for(int i = 0; i < klasa.listaPrzedmiotow.size(); i++){
-            if(klasa.listaPrzedmiotow.get(i).getNazwa().equals(nazwaPrzedmiotu)){
-                if((klasa.listaPrzedmiotow.get(i).getProwadzacy() == null)){
-                    klasa.listaPrzedmiotow.get(i).setProwadzacy(this);
-                }else
-                    System.out.println("Ten przedmiot ma już prowadzącego przypisanego tej klasie!");
-            }
-
-        }
     }
 }
