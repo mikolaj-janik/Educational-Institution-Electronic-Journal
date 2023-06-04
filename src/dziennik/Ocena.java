@@ -3,18 +3,27 @@ package dziennik;
 import java.time.LocalDate;
 
 class Ocena {
-    private double waga;
+    private int waga;
     private double ocena;
     private LocalDate dataDodania;
     private Nauczyciel prowadzacy;
-    protected Ocena(double ocena, double waga, LocalDate dataDodania, Nauczyciel prowadzacy){
+    protected Ocena(double ocena, int waga, LocalDate dataDodania, Nauczyciel prowadzacy){
         this.ocena = ocena;
         this.waga = waga;
         this.dataDodania = dataDodania;
         this.prowadzacy = prowadzacy;
     }
+    protected double getWaga(){
+        return waga;
+    }
+    protected double getOcena(){
+        return ocena;
+    }
+    @Override
     public String toString(){
-        if(ocena == 1.5)
+        if(ocena == 1.0)
+            return "1  waga: "+waga+ ",  data: "+dataDodania +"  dodane przez "+prowadzacy.toString();
+        else if(ocena == 1.5)
             return "+1  waga: "+waga+ ",  data: "+dataDodania +"  dodane przez "+prowadzacy.toString();
         else if(ocena == 1.75)
             return "-2  waga: "+waga+ ",  data: "+dataDodania +"  dodane przez "+prowadzacy.toString();

@@ -24,6 +24,10 @@ public class Nauczyciel extends Osoba{
     public String toString(){
         return "mgr "+imie + " " + nazwisko;
     }
+    public void printListaKlas(){
+        for(int i = 0; i < listaKlas.size(); i++)
+            System.out.println(listaKlas.get(i).getNazwa());
+    }
 
     public void setKlasaPodOpieką(Klasa klasaPodOpieką) {
         this.klasaPodOpieką = klasaPodOpieką;

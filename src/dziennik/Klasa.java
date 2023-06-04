@@ -11,9 +11,13 @@ public class Klasa {
     public Klasa(String nazwa, Nauczyciel wychowawca, Nauczyciel...nauczyciele){
         this.wychowawca = wychowawca;
         this.wychowawca.setKlasaPodOpieką(this);
+        this.wychowawca.dodajKlase(this);
         listaNauczycieli.add(wychowawca);
-        for(int i = 0; i < nauczyciele.length; i++)
+        for(int i = 0; i < nauczyciele.length; i++) {
+            nauczyciele[i].dodajKlase(this);
             listaNauczycieli.add(nauczyciele[i]);
+        }
+
         this.nazwa = nazwa;
         for(int i = 0; i < listaNauczycieli.size(); i++){
             for(int j = 0; j < listaNauczycieli.get(i).listaPrzedmiotow.size(); j++)
