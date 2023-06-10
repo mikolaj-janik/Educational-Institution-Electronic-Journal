@@ -11,11 +11,13 @@ public class Main {
         //klasa.printListaPrzedmiotow();
         //((Nauczyciel) nauczycielMatematykiFizyki).printListaKlas();
         Uczen uczen0 = new Uczen("Patryk", "Cygnar", LocalDate.parse("2001-05-19"), klasa);
-        Uczen uczen1 = new Uczen("Jakub", "Kucaba", LocalDate.parse("2002-07-12"), klasa);
+        Uczen uczen1 = new Uczen("Jakub", "Kucaba", LocalDate.parse("2002-06-01"), klasa);
         Uczen uczen2 = new Uczen("Łukuś", "Królicki", LocalDate.parse("2002-02-27"), klasa);
         Uczen uczen3 = new Uczen("Mikołaj", "Janik", LocalDate.parse("2002-04-15"), klasa);
         Uczen uczen4 = new Uczen("Dawid", "Balon", LocalDate.parse("2002-11-19"), klasa);
-        Uczen uczen5 = new Uczen("Rafał", "Ciołek", LocalDate.parse("2002-06-10"), klasa);
+        Uczen uczen5 = new Uczen("Marian", "Bereza", LocalDate.parse("2004-08-01"), klasa);
+        Uczen uczen6 = new Uczen("Rafał", "Ciołek", LocalDate.parse("2002-06-10"), klasa);
+        Uczen uczen7 = new Uczen("Mamadeuś", "Duźniak", LocalDate.parse("2009-06-10"), klasa);
         Dziennik dziennik = new Dziennik((Nauczyciel)nauczycielMatematykiFizyki);
         Dziennik dziennik1 = new Dziennik(nauczycielPolskiego);
 

@@ -254,13 +254,17 @@ public class Dziennik implements DziennikInterfejs{
                 return;
             System.out.print("Podaj wagę oceny: ");
             int waga = scanner.nextInt();
+            String etykieta;
             if(waga < 1  && waga > 5){
                 System.out.println("Waga musi być pomiędzy 1 a 5! ");
                 continue;
+            } else{
+                System.out.print("Podaj etykietę: ");
+                etykieta = scanner.nextLine();
             }
             switch(ocena){
                 case "1":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.0, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.0, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 1 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -269,7 +273,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "+1", "1+":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę +1 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -278,7 +282,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "-2", "2-":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.75, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(1.75, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę -2 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -287,7 +291,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "2":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(2, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(2, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 2 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -296,7 +300,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "+2", "2+":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(2.5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(2.5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę +2 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -305,7 +309,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "-3", "3-":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(2.75, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(2.75, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę -3 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -314,7 +318,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "3":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(3, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(3, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 3 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -323,7 +327,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "+3", "3+":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(3.5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(3.5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę +3 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -332,7 +336,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "-4", "4-":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(3.75, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(3.75, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę -4 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -341,7 +345,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "4":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(4, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(4, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 4 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -350,7 +354,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "+4", "4+":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(4.5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(4.5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę +4 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -359,7 +363,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "-5", "5-":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(4.75, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(4.75, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę -5 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -368,7 +372,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "5":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 5 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -377,7 +381,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "+5", "5+":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(5.5, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(5.5, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę +5 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -386,7 +390,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "-6", "6-":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(5.75, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(5.75, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę -6 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
@@ -395,7 +399,7 @@ public class Dziennik implements DziennikInterfejs{
                     }
                     return;
                 case "6":
-                    uczen.listaOcen.get(przedmiot).add(new Ocena(6, waga, data, nauczyciel));
+                    uczen.listaOcen.get(przedmiot).add(new Ocena(6, waga, etykieta, data, nauczyciel));
                     System.out.println("Dodano ocenę 6 o wadze " + waga + "! ");
                     try{
                         Thread.sleep(2000);
