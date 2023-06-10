@@ -1,9 +1,12 @@
 package dziennik;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.lang.Math;
+
 public class Dziennik implements DziennikInterfejs{
     private Uczen uczen;
     private Nauczyciel nauczyciel;
@@ -247,19 +250,22 @@ public class Dziennik implements DziennikInterfejs{
     }
     private void zarzadzajOcenami4(Przedmiot przedmiot, Uczen uczen){
         LocalDate data = LocalDate.now();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while(true){
             System.out.print("Dodaj ocenę: ");
-            String ocena = scanner.next();
+            scanner.nextLine();
+            String ocena = scanner.nextLine();
             if(ocena.equals("-1"))
                 return;
             System.out.print("Podaj wagę oceny: ");
             int waga = scanner.nextInt();
-            String etykieta;
+            String etykieta = "";
             if(waga < 1  && waga > 5){
                 System.out.println("Waga musi być pomiędzy 1 a 5! ");
                 continue;
             } else{
                 System.out.print("Podaj etykietę: ");
+                scanner.nextLine();
                 etykieta = scanner.nextLine();
             }
             switch(ocena){
