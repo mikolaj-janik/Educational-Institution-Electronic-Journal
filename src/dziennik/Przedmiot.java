@@ -3,13 +3,15 @@ package dziennik;
 public class Przedmiot {
     private String nazwa;
     private Nauczyciel prowadzacy;
-    private int iloscOcenDoZaliczenia;
+    protected int iloscGodzinTygodniowo;
 
-    public Przedmiot(String nazwa, int iloscOcenDoZaliczenia) {
+    public Przedmiot(String nazwa, int iloscGodzinTygodniowo) {
         this.nazwa = nazwa;
-        this.iloscOcenDoZaliczenia = iloscOcenDoZaliczenia;
+        this.iloscGodzinTygodniowo = iloscGodzinTygodniowo;
     }
-
+    protected Przedmiot(String nazwa){
+        this.nazwa = nazwa;
+    }
     public void setProwadzacy(Nauczyciel prowadzacy) {
         this.prowadzacy = prowadzacy;
     }

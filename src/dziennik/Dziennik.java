@@ -20,8 +20,7 @@ public class Dziennik implements DziennikInterfejs{
                     "\n\t2. Pokaż plan lekcji" +
                     "\n\t3. Pokaż kalendarz zdarzeń" +
                     "\n\t4. Pokaż uwagi" +
-                    "\n\t5. Pokaż frekwencję" +
-                    "\n\t6. Wyjście "+
+                    "\n\t5. Wyjście "+
                     "\nTwój wybór: ");
             int wybor = scanner.nextInt();
             switch(wybor){
@@ -38,9 +37,6 @@ public class Dziennik implements DziennikInterfejs{
                     pokazUwagi(uczen);
                     break;
                 case 5:
-                    pokazFrekwencje(uczen);
-                    break;
-                case 6:
                     System.exit(0);
                     break;
                 default:
@@ -56,10 +52,9 @@ public class Dziennik implements DziennikInterfejs{
         System.out.println("Nauczyciel: "+nauczyciel.toString());
         while(true){
             System.out.print("\t1. Zarządzaj ocenami " +
-                    "\n\t2. Zarządzaj frekwencją" +
-                    "\n\t3. Zarządzaj kalendarzem" +
-                    "\n\t4. Zarządzaj uwagami" +
-                    "\n\t5. Wyjście "+
+                    "\n\t2. Zarządzaj kalendarzem" +
+                    "\n\t3. Zarządzaj uwagami" +
+                    "\n\t4. Wyjście "+
                     "\nTwój wybór: ");
             int wybor = scanner.nextInt();
             switch(wybor){
@@ -67,15 +62,12 @@ public class Dziennik implements DziennikInterfejs{
                     zarzadzajOcenami(nauczyciel);
                     break;
                 case 2:
-                    zarzadzajFrekwencja(nauczyciel);
-                    break;
-                case 3:
                     zarzadzajKalendarzem(nauczyciel);
                     break;
-                case 4:
+                case 3:
                     wpiszUwage(nauczyciel);
                     break;
-                case 5:
+                case 4:
                     return;
                 default:
                     System.out.println("Taki wybór nie istnieje! ");
@@ -91,7 +83,66 @@ public class Dziennik implements DziennikInterfejs{
 
     @Override
     public void pokazPlanLekcji(Uczen uczen) {
-
+        while(true){
+            System.out.print("\t1. poniedziałek" +
+                    "\n\t2. wtorek" +
+                    "\n\t3. środa" +
+                    "\n\t4. czwartek" +
+                    "\n\t5. piątek" +
+                    "\n\t6. Wstecz" +
+                    "\nTwój wybór: ");
+            int wybor = scanner.nextInt();
+            switch(wybor){
+                case 1:
+                    pokazPlanLekcji1(uczen.getKlasa().tydzien.get(0), uczen);
+                    break;
+                case 2:
+                    pokazPlanLekcji1(uczen.getKlasa().tydzien.get(1), uczen);
+                    break;
+                case 3:
+                    pokazPlanLekcji1(uczen.getKlasa().tydzien.get(2), uczen);
+                    break;
+                case 4:
+                    pokazPlanLekcji1(uczen.getKlasa().tydzien.get(3), uczen);
+                    break;
+                case 5:
+                    pokazPlanLekcji1(uczen.getKlasa().tydzien.get(4), uczen);
+                    break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("Takiej opcji nie ma! Wpisz jeszcze raz! ");
+                    try{
+                        Thread.sleep(2000);
+                    }catch(InterruptedException e){
+                        System.err.println(e.getMessage());
+                    }
+                    break;
+            }
+        }
+    }
+    private void pokazPlanLekcji1(DzienTygodnia dzienTygodnia, Uczen uczen){
+        while(true){
+            System.out.println("---Plan lekcji " + uczen.getKlasa().getNazwa() + " " + dzienTygodnia.getNazwa() + "---");
+            for(int i = 0; i < dzienTygodnia.godzinaLekcyjna.length; i++){
+                if(!dzienTygodnia.godzinaLekcyjna[i].getNazwa().equals("null"))
+                    System.out.println(i + 1 + ". " + dzienTygodnia.godzinaLekcyjna[i].getNazwa() + "(" + dzienTygodnia.godzinyLekcyjne[i] + ")");
+                else
+                    System.out.println(i + 1 + ". ---------- (" + dzienTygodnia.godzinyLekcyjne[i] + ")");
+            }
+            System.out.print("Wybierz 1 aby powrócić: ");
+            int wybor = scanner.nextInt();
+            if (wybor == 1) {
+                return;
+            } else {
+                System.out.println("Wybrana opcja jest różna od 1! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
     }
 
     @Override
@@ -105,13 +156,10 @@ public class Dziennik implements DziennikInterfejs{
     }
 
     @Override
-    public void pokazFrekwencje(Uczen uczen) {
-
-    }
-
-    @Override
     public void zarzadzajKalendarzem(Nauczyciel nauczyciel) {
+        while(true){
 
+        }
     }
 
     @Override
@@ -421,11 +469,6 @@ public class Dziennik implements DziennikInterfejs{
     }
     @Override
     public void wpiszUwage(Nauczyciel Nauczyciel) {
-
-    }
-
-    @Override
-    public void zarzadzajFrekwencja(Nauczyciel nauczyciel) {
 
     }
 }
