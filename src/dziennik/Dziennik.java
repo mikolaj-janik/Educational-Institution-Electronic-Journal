@@ -14,8 +14,8 @@ public class Dziennik implements DziennikInterfejs{
     public Dziennik(Uczen uczen){
         this.uczen = uczen;
         System.out.println("---Dziennik Pibrus---");
-        System.out.println("Uczeń: "+uczen.toString());
         while(true){
+            System.out.println("Uczeń: "+uczen.toString());
             System.out.print("\t1. Pokaż oceny " +
                     "\n\t2. Pokaż plan lekcji" +
                     "\n\t3. Pokaż kalendarz zdarzeń" +
@@ -78,7 +78,58 @@ public class Dziennik implements DziennikInterfejs{
     }
     @Override
     public void pokazOceny(Uczen uczen) {
-
+        while(true){
+            System.out.println("---" + uczen.getImie() + " " + uczen.getNazwisko() + " " + uczen.getKlasa().getNazwa() + " oceny---");
+            for(int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++) {
+                int nr = i + 1;
+                System.out.println("\t" + nr + ". " + uczen.getKlasa().listaPrzedmiotow.get(i).getNazwa());
+            }
+            int back = uczen.getKlasa().listaPrzedmiotow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor < uczen.getKlasa().listaPrzedmiotow.size() + 1)
+                pokazOceny1(uczen, uczen.getKlasa().listaPrzedmiotow.get(wybor - 1));
+            else if(wybor == back)
+                return;
+            else {
+                System.out.println("Taki wybór nie istnieje! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+    private void pokazOceny1(Uczen uczen, Przedmiot przedmiot){
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            if(!uczen.listaOcen.get(przedmiot).isEmpty()) {
+                System.out.println(przedmiot.getNazwa() + " - średnia ważona: " + uczen.obliczSrednia(przedmiot));
+                System.out.println("Lista ocen: ");
+            }
+            else
+                System.out.println("Brak ocen! ");
+            for(int i = 0; i < uczen.listaOcen.get(przedmiot).size(); i++){
+                if(uczen.listaOcen.get(przedmiot).get(i).getOcena() % 1 != 0)
+                    System.out.println(uczen.listaOcen.get(przedmiot).get(i).toString());
+                else
+                    System.out.println(" " + uczen.listaOcen.get(przedmiot).get(i).toString());
+            }
+            System.out.print("Wybierz 1 aby powrócić: ");
+            int wybor = scanner.nextInt();
+            if(wybor == 1)
+                return;
+            else{
+                System.out.println("Taki wybór nie istnieje! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
     }
 
     @Override
@@ -125,10 +176,11 @@ public class Dziennik implements DziennikInterfejs{
         while(true){
             System.out.println("---Plan lekcji " + uczen.getKlasa().getNazwa() + " " + dzienTygodnia.getNazwa() + "---");
             for(int i = 0; i < dzienTygodnia.godzinaLekcyjna.length; i++){
+                int nr = i + 1;
                 if(!dzienTygodnia.godzinaLekcyjna[i].getNazwa().equals("null"))
-                    System.out.println(i + 1 + ". " + dzienTygodnia.godzinaLekcyjna[i].getNazwa() + "(" + dzienTygodnia.godzinyLekcyjne[i] + ")");
+                    System.out.println(nr + ". " + dzienTygodnia.godzinaLekcyjna[i].getNazwa() + "(" + dzienTygodnia.godzinyLekcyjne[i] + ")");
                 else
-                    System.out.println(i + 1 + ". ---------- (" + dzienTygodnia.godzinyLekcyjne[i] + ")");
+                    System.out.println(nr + ". ---------- (" + dzienTygodnia.godzinyLekcyjne[i] + ")");
             }
             System.out.print("Wybierz 1 aby powrócić: ");
             int wybor = scanner.nextInt();

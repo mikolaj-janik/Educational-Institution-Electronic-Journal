@@ -11,8 +11,6 @@ public class Main {
         Nauczyciel nauczycielReligii = new Nauczyciel("Maciej", "Półtorak", LocalDate.parse("1978-08-18"), new Przedmiot("religia", 2));
         Nauczyciel nauczycielWF = new Nauczyciel("Edyta", "Daszkiewicz", LocalDate.parse("1972-12-12"), new Przedmiot("wychowanie fizyczne", 3));
         Klasa klasa = new Klasa("2a", (Nauczyciel) nauczycielMatematykiFizyki, nauczycielAngielskiego, nauczycielPolskiego, nauczycielHistorii, nauczycielWF, nauczycielReligii);
-        //klasa.printListaPrzedmiotow();
-        //((Nauczyciel) nauczycielMatematykiFizyki).printListaKlas();
         Uczen uczen0 = new Uczen("Patryk", "Cygnar", LocalDate.parse("2001-05-19"), klasa);
         Uczen uczen1 = new Uczen("Jakub", "Kucaba", LocalDate.parse("2002-06-01"), klasa);
         Uczen uczen2 = new Uczen("Łukuś", "Królicki", LocalDate.parse("2002-02-27"), klasa);
