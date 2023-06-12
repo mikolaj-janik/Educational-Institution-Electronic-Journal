@@ -199,10 +199,10 @@ public class Dziennik implements DziennikInterfejs{
 
     @Override
     public void pokazKalendarzZdarzen(Uczen uczen) {
-        while(true){
+        while(true) {
             System.out.println("---" + uczen.toString() + "---");
             System.out.println("Wybierz przedmiot: ");
-            for(int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++){
+            for (int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++) {
                 int nr = i + 1;
                 System.out.println("\t" + nr + ". " + uczen.getKlasa().listaPrzedmiotow.get(i).getNazwa());
             }
@@ -210,11 +210,11 @@ public class Dziennik implements DziennikInterfejs{
             System.out.println("\t" + back + ". Wstecz");
             System.out.print("Twój wybór: ");
             int wybor = scanner.nextInt();
-            if(wybor > 0 && wybor <= uczen.getKlasa().listaPrzedmiotow.size())
+            if (wybor > 0 && wybor <= uczen.getKlasa().listaPrzedmiotow.size())
                 pokazKalendarzZdarzen1(uczen, uczen.getKlasa().listaPrzedmiotow.get(wybor - 1));
-            else if(wybor == back)
+            else if (wybor == back)
                 return;
-            else{
+            else {
                 System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
                 try {
                     Thread.sleep(2000);
@@ -222,7 +222,8 @@ public class Dziennik implements DziennikInterfejs{
                     System.err.println(e.getMessage());
                 }
             }
-    public void wpiszUwage(Nauczyciel Nauczyciel) {
+        }}
+    public void wpiszUwage(Nauczyciel nauczyciel) {
 
         while(true){
             System.out.println("Wybierz klasę: ");
@@ -464,16 +465,6 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-
-
-
-
-
-    @Override
-    public void pokazKalendarzZdarzen(Uczen uczen) {
-
-    }
-
     @Override
     public void zarzadzajKalendarzem(Nauczyciel nauczyciel) {
         while(true){
