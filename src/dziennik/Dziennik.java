@@ -129,7 +129,6 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-
     @Override
     public void pokazPlanLekcji(Uczen uczen) {
         while(true){

@@ -10,5 +10,4 @@ public interface DziennikInterfejs {
     void zarzadzajKalendarzem(Nauczyciel nauczyciel);
     void zarzadzajOcenami(Nauczyciel nauczyciel);
     void wpiszUwage(Nauczyciel Nauczyciel);
-
 }
