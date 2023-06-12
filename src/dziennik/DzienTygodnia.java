@@ -1,6 +1,8 @@
 package dziennik;
 
-public class DzienTygodnia {
+import java.io.Serializable;
+
+public class DzienTygodnia implements Serializable {
     protected Przedmiot [] godzinaLekcyjna = new Przedmiot[8];
     protected String [] godzinyLekcyjne = new String[8];
     protected String nazwa;

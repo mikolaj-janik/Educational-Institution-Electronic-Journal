@@ -1,7 +1,6 @@
 package dziennik;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class Dziennik implements DziennikInterfejs{
                     System.out.println("Taki wybór nie istnieje! ");
                     break;
             }
-
         }
     }
     public Dziennik(Nauczyciel nauczyciel){
@@ -199,9 +197,58 @@ public class Dziennik implements DziennikInterfejs{
 
     @Override
     public void pokazKalendarzZdarzen(Uczen uczen) {
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            System.out.println("Wybierz przedmiot: ");
+            for(int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++){
+                int nr = i + 1;
+                System.out.println("\t" + nr + ". " + uczen.getKlasa().listaPrzedmiotow.get(i).getNazwa());
+            }
+            int back = uczen.getKlasa().listaPrzedmiotow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= uczen.getKlasa().listaPrzedmiotow.size())
+                pokazKalendarzZdarzen1(uczen, uczen.getKlasa().listaPrzedmiotow.get(wybor - 1));
+            else if(wybor == back)
+                return;
+            else{
+                System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
 
+        }
     }
-
+    private void pokazKalendarzZdarzen1(Uczen uczen, Przedmiot przedmiot){
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            System.out.println("---Kalendarz (10 dni roboczych do przodu)---");
+            for(int i = 0; i < przedmiot.daty.length; i++){
+                if(przedmiot.kalendarz.get(przedmiot.daty[i]).equals("null"))
+                    System.out.println("\t. " + getDzienTygodnia(przedmiot.daty[i]) + " (" + przedmiot.daty[i] + ") " + "----------");
+                else {
+                    String zdarzenie = przedmiot.kalendarz.get(przedmiot.daty[i]);
+                    System.out.println("\t. " + getDzienTygodnia(przedmiot.daty[i]) + " (" + przedmiot.daty[i] + "): " + zdarzenie);
+                }
+            }
+            System.out.print("Wpisz 1 aby powrócić: ");
+            int wybor = scanner.nextInt();
+            if(wybor == 1)
+                return;
+            else{
+                System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
     @Override
     public void pokazUwagi(Uczen uczen) {
 
@@ -210,10 +257,137 @@ public class Dziennik implements DziennikInterfejs{
     @Override
     public void zarzadzajKalendarzem(Nauczyciel nauczyciel) {
         while(true){
-
+            System.out.println("---Nauczyciel: " + nauczyciel.toString() + "---");
+            System.out.println("Wybierz klasę: ");
+            for(int i = 0; i < nauczyciel.listaKlas.size(); i++){
+                int nr = i + 1;
+                System.out.println("\t" + nr + ". " + nauczyciel.listaKlas.get(i).getNazwa());
+            }
+            int back = nauczyciel.listaKlas.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= nauczyciel.listaKlas.size())
+                zarzadzajKalendarzem1(nauczyciel, nauczyciel.listaKlas.get(wybor - 1));
+            else if(wybor == back)
+                return;
+            else{
+                System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
         }
     }
-
+    private void zarzadzajKalendarzem1(Nauczyciel nauczyciel, Klasa klasa){
+        while(true){
+            System.out.println("---Nauczyciel: " + nauczyciel.toString() + "---");
+            System.out.println("Wybierz przedmiot: ");
+                for(int i = 0; i < nauczyciel.listaPrzedmiotow.size(); i++){
+                    int nr = i + 1;
+                    System.out.println("\t" + nr + ". " + nauczyciel.listaPrzedmiotow.get(i).getNazwa());
+                }
+                int back = nauczyciel.listaPrzedmiotow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= nauczyciel.listaPrzedmiotow.size())
+                zarzadzajKalendarzem2(nauczyciel, klasa, nauczyciel.listaPrzedmiotow.get(wybor - 1));
+            else if(wybor == back)
+                return;
+            else{
+                System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+    private static String getDzienTygodnia(LocalDate data){
+        switch(data.getDayOfWeek().toString()){
+            case "MONDAY":
+                return "poniedziałek";
+            case "TUESDAY":
+                return "wtorek";
+            case "WEDNESDAY":
+                return "środa";
+            case "THURSDAY":
+                return "czwartek";
+            case "FRIDAY":
+                return "piątek";
+            case "SATURDAY":
+                return "sobota";
+            case "SUNDAY":
+                return "niedziela";
+        }
+        return null;
+    }
+    private void zarzadzajKalendarzem2(Nauczyciel nauczyciel, Klasa klasa, Przedmiot przedmiot){
+        LocalDate data = LocalDate.now();
+        for(int i = 0; i < przedmiot.daty.length; i++){
+            data = data.plusDays(1);
+            data = switch (data.getDayOfWeek().toString()) {
+                case "SATURDAY" -> data.plusDays(2);
+                case "SUNDAY" -> data.plusDays(1);
+                default -> data;
+            };
+            przedmiot.daty[i] = data;
+            przedmiot.kalendarz.putIfAbsent(data, "null");
+        }
+        while(true){
+            System.out.println("---Nauczyciel: " + nauczyciel.toString() + "---");
+            System.out.println("---Kalendarz (10 dni roboczych do przodu)---");
+            for(int i = 0; i < przedmiot.daty.length; i++){
+                int nr = i + 1;
+                if(przedmiot.kalendarz.get(przedmiot.daty[i]).equals("null"))
+                    System.out.println("\t" + nr + ". " + getDzienTygodnia(przedmiot.daty[i]) + " (" + przedmiot.daty[i] + ") " + "----------");
+                else {
+                    String zdarzenie = przedmiot.kalendarz.get(przedmiot.daty[i]);
+                    System.out.println("\t" + nr + ". " + getDzienTygodnia(przedmiot.daty[i]) + " (" + przedmiot.daty[i] + "): " + zdarzenie);
+                }
+            }
+            int back = przedmiot.daty.length + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= przedmiot.daty.length)
+                zarzadzajKalendarzem3(przedmiot.daty[wybor - 1], przedmiot, klasa);
+            else if(wybor == back)
+                return;
+            else{
+                System.out.println("Taka opcja nie istnieje! Spróbuj jeszcze raz! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+    private void zarzadzajKalendarzem3(LocalDate data, Przedmiot przedmiot, Klasa klasa){
+        Scanner scanner1 = new Scanner(System.in);
+        while(true){
+            System.out.println("---Nauczyciel: " + nauczyciel.toString() + " " + klasa.getNazwa() + " " + przedmiot.getNazwa() + "---");
+            System.out.print("Wpisz zdarzenie jakie chcesz dodać, wpisz -1 aby powrócić lub wpisz null aby usunąć zdarzenie: ");
+            String zdarzenie = scanner1.nextLine();
+            if(zdarzenie.equals("-1"))
+                return;
+            else{
+                przedmiot.kalendarz.put(data, zdarzenie);
+                System.out.println("Dodano wydarzenie! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+                return;
+            }
+        }
+    }
     @Override
     public void zarzadzajOcenami(Nauczyciel nauczyciel) {
         while(true){

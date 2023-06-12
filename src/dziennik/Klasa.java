@@ -1,13 +1,17 @@
 package dziennik;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
-public class Klasa {
+public class Klasa implements Serializable {
     public ArrayList<Uczen> listaUczniow = new ArrayList<>();
     public ArrayList<Nauczyciel> listaNauczycieli = new ArrayList<>();
     public ArrayList<Przedmiot> listaPrzedmiotow = new ArrayList<>();
     protected ArrayList<DzienTygodnia> tydzien = new ArrayList<>();
+    protected HashMap<LocalDate, Przedmiot> kalendarz = new HashMap<>();
     private final Nauczyciel wychowawca;
     private final String nazwa;
     private Random rand = new Random();

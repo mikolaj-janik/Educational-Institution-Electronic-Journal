@@ -1,8 +1,9 @@
 package dziennik;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Osoba {
+public abstract class Osoba implements Serializable {
     protected int wiek;
     protected String imie;
     protected String nazwisko;
