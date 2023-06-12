@@ -7,12 +7,15 @@ import java.util.HashMap;
 public class Uczen extends Osoba{
     private Klasa klasa;
     public HashMap<Przedmiot, ArrayList<Ocena>> listaOcen = new HashMap<>();
+    public HashMap<Przedmiot, ArrayList<Uwaga>> listaUwag = new HashMap<>();
     public Uczen(String imie, String nazwisko, LocalDate dataUrodzenia, Klasa klasa) {
         super(imie, nazwisko, dataUrodzenia);
         this.klasa = klasa;
         klasa.addStudent(this);
-        for(int i = 0; i < klasa.listaPrzedmiotow.size(); i++)
+        for (int i = 0; i < klasa.listaPrzedmiotow.size(); i++){
             listaOcen.put(klasa.listaPrzedmiotow.get(i), new ArrayList<Ocena>());
+            listaUwag.put(klasa.listaPrzedmiotow.get(i), new ArrayList<Uwaga>());
+        }
     }
     protected double obliczSrednia(Przedmiot przedmiot){
         double wartoscCalkowita = 0;
