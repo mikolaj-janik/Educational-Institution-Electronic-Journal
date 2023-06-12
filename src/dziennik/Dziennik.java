@@ -198,12 +198,229 @@ public class Dziennik implements DziennikInterfejs{
     }
 
     @Override
-    public void pokazKalendarzZdarzen(Uczen uczen) {
+    public void wpiszUwage(Nauczyciel Nauczyciel) {
 
+        while(true){
+            System.out.println("Wybierz klasę: ");
+            for(int i = 0; i < nauczyciel.listaKlas.size(); i++){
+                int nr = i + 1;
+                System.out.println("\t"+nr+". "+nauczyciel.listaKlas.get(i).getNazwa());
+            }
+            int back = nauczyciel.listaKlas.size() + 1;
+            System.out.println("\t"+ back +". Wstecz");
+            System.out.print("Twój wybór: ");
+            int choice = scanner.nextInt();
+            if(choice <= nauczyciel.listaKlas.size() && choice > 0)
+                WpiszUwage1(nauczyciel.listaKlas.get(choice - 1));
+            else if(choice == nauczyciel.listaKlas.size() + 1)
+                return;
+            else
+                System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz. ");
+
+        }
     }
 
+    private void WpiszUwage1(Klasa klasa){
+        ArrayList<Przedmiot> tymczasowaListaPrzedmiotow = new ArrayList<>();
+        for(int i = 0; i < klasa.listaPrzedmiotow.size(); i++){
+            for(int j = 0; j < nauczyciel.listaPrzedmiotow.size(); j++){
+                if(klasa.listaPrzedmiotow.get(i).equals(nauczyciel.listaPrzedmiotow.get(j)))
+                    tymczasowaListaPrzedmiotow.add(klasa.listaPrzedmiotow.get(i));
+            }
+        }
+        while(true){
+            System.out.println("Wybierz przedmiot: ");
+            for(int i = 0; i < tymczasowaListaPrzedmiotow.size(); i++) {
+                int nr = i + 1;
+                System.out.println("\t"+ nr + ". " + tymczasowaListaPrzedmiotow.get(i).getNazwa());
+            }
+            int back = tymczasowaListaPrzedmiotow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int numer = scanner.nextInt();
+            if(numer > 0 && numer <= tymczasowaListaPrzedmiotow.size())
+                WpiszUwage2(klasa, tymczasowaListaPrzedmiotow.get(numer - 1));
+            else if(numer == tymczasowaListaPrzedmiotow.size() + 1)
+                return;
+            else
+                System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
+        }
+    }
+
+    private void WpiszUwage2(Klasa klasa, Przedmiot przedmiot){
+        while(true){
+            System.out.println("---Klasa " + klasa.getNazwa() + "---");
+            System.out.println("Wybierz ucznia: ");
+            for(int i = 0; i < klasa.listaUczniow.size(); i++) {
+                int nr = i + 1;
+                System.out.println("\t" + nr + ". "+ klasa.listaUczniow.get(i).getImie() + " " + klasa.listaUczniow.get(i).getNazwisko());
+            }
+            int back = klasa.listaUczniow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= klasa.listaUczniow.size())
+                WpiszUwage3(przedmiot, klasa.listaUczniow.get(wybor - 1));
+            else if(wybor == klasa.listaUczniow.size() + 1)
+                return;
+            else
+                System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
+        }
+    }
+
+    private void WpiszUwage3(Przedmiot przedmiot, Uczen uczen){
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            System.out.println("\tUwagi:");
+
+            if(!uczen.listaUwag.isEmpty()){
+                for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++) {
+                    System.out.println("\t*" + uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi() + "*\t" + uczen.listaUwag.get(przedmiot).get(i).getUwaga());
+                }
+                System.out.println();
+            }
+            else{
+                System.out.println("Brak Uwag!");
+                System.out.println();
+            }
+
+
+            System.out.println("\t1. Dodaj uwage" +
+                    "\n\t2. Usuń uwage" +
+                    "\n\t3. Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            switch (wybor) {
+                case 1:
+                    WpiszUwage4(przedmiot, uczen);
+                    break;
+                case 2:
+                    if(uczen.listaUwag.get(przedmiot).isEmpty())
+                        System.out.println("Brak uwag!!!");
+                    else
+                        usunUwage(przedmiot, uczen);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Nie ma takiej opcji! Wybierz jeszcze raz! ");
+                    break;
+            }
+        }
+    }
+
+
+    private void WpiszUwage4(Przedmiot przedmiot, Uczen uczen) {
+        LocalDate data = LocalDate.now();
+        while (true) {
+            System.out.print("Dodaj Tresc uwagi: ");
+            scanner.nextLine();
+            String uwaga = scanner.nextLine();
+            if (uwaga.equals("-1"))
+                return;
+
+            String TytulUwagi = "";
+            System.out.print("Podaj Tytul Uwagi: ");
+            TytulUwagi = scanner.nextLine();
+
+            uczen.listaUwag.get(przedmiot).add(new Uwaga(uwaga, TytulUwagi, data, przedmiot.getProwadzacy()));
+            System.out.println("Dodano uwage: " + TytulUwagi + "! ");
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
+            return;
+        }
+    }
+
+    private void usunUwage(Przedmiot przedmiot, Uczen uczen){
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++){
+                int nr = i + 1;
+                System.out.println("\t" + nr + ".  " + uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi());
+            }
+            int back = uczen.listaUwag.get(przedmiot).size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor <= uczen.listaUwag.get(przedmiot).size()) {
+                System.out.println("Usunięto wskazaną Uwage! ");
+                uczen.listaUwag.get(przedmiot).remove(wybor - 1);
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){
+                    System.err.println(e.getMessage());
+                }
+            }
+            else if(wybor == back)
+                return;
+            else
+                System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
+        }
+    }
     @Override
     public void pokazUwagi(Uczen uczen) {
+        while(true){
+            System.out.println("---" + uczen.getImie() + " " + uczen.getNazwisko() + " " + uczen.getKlasa().getNazwa() + " uwagi---");
+            for(int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++) {
+                int nr = i + 1;
+                System.out.println("\t" + nr + ". " + uczen.getKlasa().listaPrzedmiotow.get(i).getNazwa());
+            }
+            int back = uczen.getKlasa().listaPrzedmiotow.size() + 1;
+            System.out.println("\t" + back + ". Wstecz");
+            System.out.print("Twój wybór: ");
+            int wybor = scanner.nextInt();
+            if(wybor > 0 && wybor < uczen.getKlasa().listaPrzedmiotow.size() + 1)
+                pokazOceny1(uczen, uczen.getKlasa().listaPrzedmiotow.get(wybor - 1));
+            else if(wybor == back)
+                return;
+            else {
+                System.out.println("Taki wybór nie istnieje! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+    private void pokazUwagi1(Uczen uczen, Przedmiot przedmiot){
+        while(true){
+            System.out.println("---" + uczen.toString() + "---");
+            if(!uczen.listaUwag.get(przedmiot).isEmpty()) {
+                System.out.println("Lista uwag: ");
+            }
+            else
+                System.out.println("Brak uwag! ");
+
+            for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++){
+                System.out.println(uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi());
+            }
+
+            System.out.print("Wybierz 1 aby powrócić: ");
+            int wybor = scanner.nextInt();
+            if(wybor == 1)
+                return;
+            else{
+                System.out.println("Taki wybór nie istnieje! ");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+
+
+
+
+    @Override
+    public void pokazKalendarzZdarzen(Uczen uczen) {
 
     }
 
@@ -519,8 +736,5 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-    @Override
-    public void wpiszUwage(Nauczyciel Nauczyciel) {
 
-    }
 }
