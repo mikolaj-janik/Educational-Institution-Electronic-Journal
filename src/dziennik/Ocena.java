@@ -1,8 +1,19 @@
 package dziennik;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-class Ocena {
+
+class Ocena implements Serializable {
+    /**
+     * To jest klasa odpowiedzialna za ocenę
+     * @author Mikołaj Janik, Patryk Cygnar, Marian- Dominik Bereza
+     * @param waga waga oceny
+     * @param ocena wartość liczbowa oceny (double)
+     * @param etykieta etykieta oceny
+     * @param dataDodania data dodania oceny
+     * @param prowadzacy nauczyciel, który dodał ocenę
+     */
     private int waga;
     private double ocena;
     private String etykieta;
@@ -15,15 +26,35 @@ class Ocena {
         this.dataDodania = dataDodania;
         this.prowadzacy = prowadzacy;
     }
+
+    /**
+     * Metoda zwracająca opis oceny
+     * @return zwraca opis oceny (za co jest wystawiona)
+     */
     protected String getEtykieta(){
         return etykieta;
     }
+
+    /**
+     * Metoda zwracająca wagę oceny
+     * @return zwraca wagę oceny
+     */
     protected double getWaga(){
         return waga;
     }
+
+    /**
+     * Metoda zwracająca wartość liczbową oceny
+     * @return zwraca wartość liczbową oceny
+     */
     protected double getOcena(){
         return ocena;
     }
+
+    /**
+     * Metoda zwracająca słowną reprezentację oceny
+     * @return zwraca słowną reprezentację oceny
+     */
     @Override
     public String toString(){
         if(ocena == 1.0)

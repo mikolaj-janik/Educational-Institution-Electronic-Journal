@@ -3,14 +3,29 @@ package dziennik;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Dziennik implements DziennikInterfejs{
+public class Dziennik implements DziennikInterfejs, Serializable {
+    /**
+     * @author Mikołaj Janik, Patryk Cygnar, Marian- Dominik Bereza
+     * Klasa Dziennik łącząca wszytkie elementy w jedną całość
+     * @param uczen obiekt typu Uczen, z perspektywy którego jest
+     * możliwe otworzenie dziennika
+     * @param uczen obiekt typu Nauczyciel, z perspektywy którego również
+     * jest możliwe otworzenie dziennika
+     * @param scanner obiekt typu Scanner służący do pobierania danych z klawiatury
+     */
     private Uczen uczen;
     private Nauczyciel nauczyciel;
     Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Konstruktor uruchamiający dziennik z perspektywy ucznia
+     * @param uczen obiekt typu Uczen przekazywany do konstruktora
+     */
     public Dziennik(Uczen uczen){
         this.uczen = uczen;
         System.out.println("---Dziennik Pibrus---");
@@ -46,6 +61,10 @@ public class Dziennik implements DziennikInterfejs{
 
         }
     }
+    /**
+     * Konstruktor uruchamiający dziennik z perspektywy nauczyciela
+     * @param nauczyciel obiekt typu Uczen przekazywany do konstruktora
+     */
     public Dziennik(Nauczyciel nauczyciel){
         this.nauczyciel = nauczyciel;
         System.out.println("---Dziennik Pibrus---");
@@ -76,6 +95,10 @@ public class Dziennik implements DziennikInterfejs{
 
         }
     }
+    /**
+     * Metoda pokazująca oceny możliwa do uruchomienia tylko z perspektywy ucznia
+     * @param uczen obiekt typu Uczen
+     */
     @Override
     public void pokazOceny(Uczen uczen) {
         while(true){
@@ -102,6 +125,12 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+
+    /**
+     * Metoda pomocnicza rozszerzająca metodę pokazOceny()
+     * @param uczen obiekt typu Uczen przekazywany z poprzedniej metody PokazOceny()
+     * @param przedmiot obiekt typu Nauczyciel przekazywany z poprzedniej metody PokazOceny()
+     */
     private void pokazOceny1(Uczen uczen, Przedmiot przedmiot){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
@@ -132,6 +161,10 @@ public class Dziennik implements DziennikInterfejs{
         }
     }
 
+    /**
+     * Metoda pokazująca plan lekcji możliwa do uruchomienia tylko z perspektywy ucznia
+     * @param uczen obiekt typu Uczen
+     */
     @Override
     public void pokazPlanLekcji(Uczen uczen) {
         while(true){
@@ -172,6 +205,11 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę pokazPlanLekcji()
+     * @param uczen obiekt typu Uczen przekazywany z poprzedniej metody PokazPlanLekcji()
+     * @param dzienTygodnia obiekt typu DzienTygodnia przekazywany z poprzedniej metody PokazPlanLekcji()
+     */
     private void pokazPlanLekcji1(DzienTygodnia dzienTygodnia, Uczen uczen){
         while(true){
             System.out.println("---Plan lekcji " + uczen.getKlasa().getNazwa() + " " + dzienTygodnia.getNazwa() + "---");
@@ -197,6 +235,10 @@ public class Dziennik implements DziennikInterfejs{
         }
     }
 
+    /**
+     * Metoda pokazująca kalendarz możliwa do uruchomienia tylko z perspektywy ucznia
+     * @param uczen obiekt typu Uczen
+     */
     @Override
     public void pokazKalendarzZdarzen(Uczen uczen) {
         while(true) {
@@ -222,17 +264,23 @@ public class Dziennik implements DziennikInterfejs{
                     System.err.println(e.getMessage());
                 }
             }
-        }}
+        }
+    }
+    /**
+     * Metoda pokazująca pozwalająca nauczycielowi na wpisanie uwagi możliwa do uruchomienia
+     * tylko z perspektywy nauczyciela
+     * @param nauczyciel obiekt klasy Nauczyciel
+     */
     public void wpiszUwage(Nauczyciel nauczyciel) {
 
         while(true){
             System.out.println("Wybierz klasę: ");
             for(int i = 0; i < nauczyciel.listaKlas.size(); i++){
                 int nr = i + 1;
-                System.out.println("\t"+nr+". "+nauczyciel.listaKlas.get(i).getNazwa());
+                System.out.println("\t" + nr + ". " + nauczyciel.listaKlas.get(i).getNazwa());
             }
             int back = nauczyciel.listaKlas.size() + 1;
-            System.out.println("\t"+ back +". Wstecz");
+            System.out.println("\t" + back + ". Wstecz");
             System.out.print("Twój wybór: ");
             int choice = scanner.nextInt();
             if(choice <= nauczyciel.listaKlas.size() && choice > 0)
@@ -244,7 +292,10 @@ public class Dziennik implements DziennikInterfejs{
 
         }
     }
-
+    /**
+     * Metoda pomocnicza rozszerzająca metodę wpiszUwage()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody wpiszUwage()
+     */
     private void WpiszUwage1(Klasa klasa){
         ArrayList<Przedmiot> tymczasowaListaPrzedmiotow = new ArrayList<>();
         for(int i = 0; i < klasa.listaPrzedmiotow.size(); i++){
@@ -271,7 +322,11 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
         }
     }
-
+    /**
+     * Metoda pomocnicza rozszerzająca metodę wpiszUwage1()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody wpiszUwage1()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody wpiszUwage1()
+     */
     private void WpiszUwage2(Klasa klasa, Przedmiot przedmiot){
         while(true){
             System.out.println("---Klasa " + klasa.getNazwa() + "---");
@@ -292,15 +347,19 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
         }
     }
-
+    /**
+     * Metoda pomocnicza rozszerzająca metodę wpiszUwage2()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody wpiszUwage2()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody wpiszUwage2()
+     */
     private void WpiszUwage3(Przedmiot przedmiot, Uczen uczen){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
             System.out.println("\tUwagi:");
 
             if(!uczen.listaUwag.isEmpty()){
-                for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++) {
-                    System.out.println("\t*" + uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi() + "*\t" + uczen.listaUwag.get(przedmiot).get(i).getUwaga());
+                for(int i = 0; i < uczen.listaUwag.size(); i++) {
+                    System.out.println("\t*" + uczen.listaUwag.get(i).getTytulUwagi() + "*\t" + uczen.listaUwag.get(i).getUwaga());
                 }
                 System.out.println();
             }
@@ -308,8 +367,6 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Brak Uwag!");
                 System.out.println();
             }
-
-
             System.out.println("\t1. Dodaj uwage" +
                     "\n\t2. Usuń uwage" +
                     "\n\t3. Wstecz");
@@ -320,7 +377,7 @@ public class Dziennik implements DziennikInterfejs{
                     WpiszUwage4(przedmiot, uczen);
                     break;
                 case 2:
-                    if(uczen.listaUwag.get(przedmiot).isEmpty())
+                    if(uczen.listaUwag.isEmpty())
                         System.out.println("Brak uwag!!!");
                     else
                         usunUwage(przedmiot, uczen);
@@ -333,8 +390,11 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-
-
+    /**
+     * Metoda pomocnicza rozszerzająca metodę wpiszUwage3()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody wpiszUwage3()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody wpiszUwage3()
+     */
     private void WpiszUwage4(Przedmiot przedmiot, Uczen uczen) {
         LocalDate data = LocalDate.now();
         while (true) {
@@ -343,14 +403,11 @@ public class Dziennik implements DziennikInterfejs{
             String uwaga = scanner.nextLine();
             if (uwaga.equals("-1"))
                 return;
-
             String TytulUwagi = "";
             System.out.print("Podaj Tytul Uwagi: ");
             TytulUwagi = scanner.nextLine();
-
-            uczen.listaUwag.get(przedmiot).add(new Uwaga(uwaga, TytulUwagi, data, przedmiot.getProwadzacy()));
+            uczen.listaUwag.add(new Uwaga(uwaga, TytulUwagi, data, przedmiot.getProwadzacy()));
             System.out.println("Dodano uwage: " + TytulUwagi + "! ");
-
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -359,6 +416,11 @@ public class Dziennik implements DziennikInterfejs{
             return;
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę pokazKalendarzZdarzen()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody pokazKalendarzZdarzen()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody pokazKalendarzZdarzen()
+     */
     private void pokazKalendarzZdarzen1(Uczen uczen, Przedmiot przedmiot){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
@@ -385,21 +447,25 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-
+    /**
+     * Metoda pomocnicza rozszerzająca metodę wpiszUwage3()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody wpiszUwage3()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody wpiszUwage3()
+     */
     private void usunUwage(Przedmiot przedmiot, Uczen uczen){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
-            for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++){
+            for(int i = 0; i < uczen.listaUwag.size(); i++){
                 int nr = i + 1;
-                System.out.println("\t" + nr + ".  " + uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi());
+                System.out.println("\t" + nr + ".  " + uczen.listaUwag.get(i).getTytulUwagi());
             }
-            int back = uczen.listaUwag.get(przedmiot).size() + 1;
+            int back = uczen.listaUwag.size() + 1;
             System.out.println("\t" + back + ". Wstecz");
             System.out.print("Twój wybór: ");
             int wybor = scanner.nextInt();
-            if(wybor > 0 && wybor <= uczen.listaUwag.get(przedmiot).size()) {
+            if(wybor > 0 && wybor <= uczen.listaUwag.size()) {
                 System.out.println("Usunięto wskazaną Uwage! ");
-                uczen.listaUwag.get(przedmiot).remove(wybor - 1);
+                uczen.listaUwag.remove(wybor - 1);
                 try{
                     Thread.sleep(2000);
                 }catch(InterruptedException e){
@@ -412,46 +478,21 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę pokazUwagi()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody pokazUwagi()
+     */
     @Override
     public void pokazUwagi(Uczen uczen) {
         while(true){
             System.out.println("---" + uczen.getImie() + " " + uczen.getNazwisko() + " " + uczen.getKlasa().getNazwa() + " uwagi---");
-            for(int i = 0; i < uczen.getKlasa().listaPrzedmiotow.size(); i++) {
-                int nr = i + 1;
-                System.out.println("\t" + nr + ". " + uczen.getKlasa().listaPrzedmiotow.get(i).getNazwa());
-            }
-            int back = uczen.getKlasa().listaPrzedmiotow.size() + 1;
-            System.out.println("\t" + back + ". Wstecz");
-            System.out.print("Twój wybór: ");
-            int wybor = scanner.nextInt();
-            if(wybor > 0 && wybor < uczen.getKlasa().listaPrzedmiotow.size() + 1)
-                pokazOceny1(uczen, uczen.getKlasa().listaPrzedmiotow.get(wybor - 1));
-            else if(wybor == back)
-                return;
+            if(uczen.listaUwag.isEmpty())
+                System.out.println(uczen.getImie() + " jest grzeczny, dlatego póki co nie posiada uwag ;)");
             else {
-                System.out.println("Taki wybór nie istnieje! ");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    System.err.println(e.getMessage());
-                }
+                for (int i = 0; i < uczen.listaUwag.size(); i++)
+                    System.out.println("\t" + "-" + uczen.listaUwag.get(i).getTytulUwagi() + ": " + uczen.listaUwag.get(i).getUwaga());
             }
-        }
-    }
-    private void pokazUwagi1(Uczen uczen, Przedmiot przedmiot){
-        while(true){
-            System.out.println("---" + uczen.toString() + "---");
-            if(!uczen.listaUwag.get(przedmiot).isEmpty()) {
-                System.out.println("Lista uwag: ");
-            }
-            else
-                System.out.println("Brak uwag! ");
-
-            for(int i = 0; i < uczen.listaUwag.get(przedmiot).size(); i++){
-                System.out.println(uczen.listaUwag.get(przedmiot).get(i).getTytulUwagi());
-            }
-
-            System.out.print("Wybierz 1 aby powrócić: ");
+            System.out.print("Naciśnij 1 aby powrócić: ");
             int wybor = scanner.nextInt();
             if(wybor == 1)
                 return;
@@ -465,6 +506,10 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+    /**
+     * Metoda zarządzająca kalendarzem z perspektywy nauczyciela
+     * @param nauczyciel obiekt typu Nauczyciel
+     */
     @Override
     public void zarzadzajKalendarzem(Nauczyciel nauczyciel) {
         while(true){
@@ -492,6 +537,11 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajKalendarzem()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody zarzadzajKalendarzem()
+     * @param nauczyciel obiekt typu Nauczyciel przekazywany z poprzeniej metody zarzadzajKalendarzem()
+     */
     private void zarzadzajKalendarzem1(Nauczyciel nauczyciel, Klasa klasa){
         while(true){
             System.out.println("---Nauczyciel: " + nauczyciel.toString() + "---");
@@ -518,6 +568,12 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+
+    /**
+     * Metoda zwracająca dzień tygodnia w zależności od podanej daty
+     * @param data obiekt typu LocalDate
+     * @return zwraca dzień tygodnia w formie tekstowej
+     */
     private static String getDzienTygodnia(LocalDate data){
         switch(data.getDayOfWeek().toString()){
             case "MONDAY":
@@ -537,6 +593,12 @@ public class Dziennik implements DziennikInterfejs{
         }
         return null;
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajKalendarzem1()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody zarzadzajKalendarzem1()
+     * @param nauczyciel obiekt typu Nauczyciel przekazywany z poprzeniej metody zarzadzajKalendarzem1()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajKalendarzem1()
+     */
     private void zarzadzajKalendarzem2(Nauczyciel nauczyciel, Klasa klasa, Przedmiot przedmiot){
         LocalDate data = LocalDate.now();
         for(int i = 0; i < przedmiot.daty.length; i++){
@@ -579,6 +641,12 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajKalendarzem2()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody zarzadzajKalendarzem2()
+     * @param data obiekt typu LocalDate przekazywany z poprzeniej metody zarzadzajKalendarzem2()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajKalendarzem2()
+     */
     private void zarzadzajKalendarzem3(LocalDate data, Przedmiot przedmiot, Klasa klasa){
         Scanner scanner1 = new Scanner(System.in);
         while(true){
@@ -599,6 +667,11 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+
+    /**
+     * Metoda pozwalająca wstawiać i usuwać oceny z perspektywy nauczyciela
+     * @param nauczyciel jako argumant jest podawany obiekt typu Nauczyciel
+     */
     @Override
     public void zarzadzajOcenami(Nauczyciel nauczyciel) {
         while(true){
@@ -617,9 +690,12 @@ public class Dziennik implements DziennikInterfejs{
                 return;
             else
                 System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz. ");
-
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajOcenami()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody zarzadzajOcenami()
+     */
     private void zarzadzajOcenami1(Klasa klasa){
         ArrayList<Przedmiot> tymczasowaListaPrzedmiotow = new ArrayList<>();
         for(int i = 0; i < klasa.listaPrzedmiotow.size(); i++){
@@ -646,6 +722,11 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajOcenami1()
+     * @param klasa obiekt typu Klasa przekazywany z poprzeniej metody zarzadzajOcenami1()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajOcenami1()
+     */
     private void zarzadzajOcenami2(Klasa klasa, Przedmiot przedmiot){
         while(true){
             System.out.println("---Klasa " + klasa.getNazwa() + "---");
@@ -666,6 +747,11 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiego wyboru! Spróbuj jeszcze raz! ");
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajOcenami2()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody zarzadzajOcenami2()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajOcenami2()
+     */
     private void zarzadzajOcenami3(Przedmiot przedmiot, Uczen uczen){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
@@ -704,6 +790,11 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajOcenami3()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody zarzadzajOcenami3()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajOcenami3()
+     */
     private void usunOcene(Przedmiot przedmiot, Uczen uczen){
         while(true){
             System.out.println("---" + uczen.toString() + "---");
@@ -733,6 +824,11 @@ public class Dziennik implements DziennikInterfejs{
                 System.out.println("Nie ma takiej opcji! Spróbuj jeszcze raz! ");
         }
     }
+    /**
+     * Metoda pomocnicza rozszerzająca metodę zarzadzajOcenami3()
+     * @param uczen obiekt typu Uczen przekazywany z poprzeniej metody zarzadzajOcenami3()
+     * @param przedmiot obiekt typu Przedmiot przekazywany z poprzeniej metody zarzadzajOcenami3()
+     */
     private void zarzadzajOcenami4(Przedmiot przedmiot, Uczen uczen){
         LocalDate data = LocalDate.now();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -904,5 +1000,4 @@ public class Dziennik implements DziennikInterfejs{
             }
         }
     }
-
 }

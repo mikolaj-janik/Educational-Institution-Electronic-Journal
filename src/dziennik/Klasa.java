@@ -7,14 +7,33 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Klasa implements Serializable {
+    /**
+     * To jest klasa odpowiedzialna za Klasę
+     * @author Mikołaj Janik, Patryk Cygnar, Marian- Dominik Bereza
+     * @param listaUczniow lista uczniów należących do klasy
+     * @param listaNauczycieli lista nauczycieli uczących klasę
+     * @param listaPrzedmiotow lista przedmiotów, które są uczone w klasie
+     * @param tydzien lista dni tygodnia użytych do planu lekcji
+     * @param nazwa nazwa klasy, np "3F"
+     */
     public ArrayList<Uczen> listaUczniow = new ArrayList<>();
     public ArrayList<Nauczyciel> listaNauczycieli = new ArrayList<>();
     public ArrayList<Przedmiot> listaPrzedmiotow = new ArrayList<>();
     protected ArrayList<DzienTygodnia> tydzien = new ArrayList<>();
-    protected HashMap<LocalDate, Przedmiot> kalendarz = new HashMap<>();
     private final Nauczyciel wychowawca;
     private final String nazwa;
     private Random rand = new Random();
+
+    /**
+     * Konstruktor automatycznie dopasowuje plan lekcji
+     * na podstawie ilości godzin w tygodniu podanej w konstruktorze
+     * klasy Przedmiot. Plan lekcji nie pozwala na okienka pomiędzy
+     * lekcjami oraz nie ma możliwości 3 lub więcej lekcji danego
+     * przedmiotu z rzędu.
+     * @param nazwa nazwa klasy, np "3F"
+     * @param wychowawca wychowawca klasy podawany jako obiekt klasy Nauczyciel
+     * @param nauczyciele lista pozostałych nauczycieli uczących daną klasę, podawanych jako obiekty klasy Nauczyciel
+     */
     public Klasa(String nazwa, Nauczyciel wychowawca, Nauczyciel...nauczyciele){
         tydzien.add(new DzienTygodnia("poniedziałek"));
         tydzien.add(new DzienTygodnia("wtorek"));
@@ -194,6 +213,14 @@ public class Klasa implements Serializable {
         }
         this.nazwa = nazwa;
     }
+
+    /**
+     * Metoda sprawdzająca, czy dany dzień tygodnia jest pusty.
+     * Używana w konstruktorze przy generacji planu lekcji
+     * @param dzienTygodnia
+     * @return zwraca prawdę jeżeli w danym dniu nie ma jeszcze dodanej żadnej lekcji,
+     * w przeciwnym przypadku zwraca fałsz
+     */
     private static Boolean isEmpty(DzienTygodnia dzienTygodnia){
         for(int i = 0; i < dzienTygodnia.godzinaLekcyjna.length; i++){
             if(!dzienTygodnia.godzinaLekcyjna[i].getNazwa().equals("null"))
@@ -201,7 +228,12 @@ public class Klasa implements Serializable {
         }
         return true;
     }
-    public void addStudent(Uczen uczen){ //ta metoda dodaje uczniów alfafbetycznie do dziennika
+
+    /**
+     * Metoda dodająca ucznia do klasy w kolejności alfabetycznej
+     * @param uczen obiekt klasy Uczen, którego chcemy dodać do klasy
+     */
+    public void addStudent(Uczen uczen){
         if(listaUczniow.isEmpty())
             listaUczniow.add(uczen);
         else{
@@ -219,18 +251,11 @@ public class Klasa implements Serializable {
             }
         }
     }
-    public void getListaUczniow(){
-        for(int i = 0; i < listaUczniow.size(); i++)
-            System.out.println(i + 1 + ". " + listaUczniow.get(i));
-    }
 
-    public Nauczyciel getWychowawca() {
-        return wychowawca;
-    }
-    public void printListaPrzedmiotow(){
-        for(int i = 0; i < listaPrzedmiotow.size(); i++)
-            System.out.println(i+1+". "+listaPrzedmiotow.get(i).getNazwa());
-    }
+    /**
+     * Metoda zwracająca nazwę klasy
+     * @return zwraca nazwę klasy w formie tekstowej, np "3F"
+     */
     public String getNazwa() {
         return nazwa;
     }
